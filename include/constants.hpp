@@ -41,6 +41,7 @@ enum status_t {IN_GAME, QUIT, PLAY, MENU, HELP};
  */
 #define WINDOW_H 800
 
+
 /** 
  * \def BUFF_SIZE
  * \brief buff size for static allocation

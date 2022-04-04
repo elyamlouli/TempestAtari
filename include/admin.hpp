@@ -9,6 +9,7 @@
 
 #include "constants.hpp"
 #include "utils.hpp"
+#include "game.hpp"
 
 /**
 * \class Admin
@@ -31,9 +32,6 @@ private:
 
     /*!< SDL soundtrack */
     Mix_Music *soundtrack;
-
-    /*!< SDL shoot sound */
-    Mix_Music *shoot_sound;
 
     /*!< normal text font */
     TTF_Font *font;
@@ -71,6 +69,11 @@ public:
      * \brief help menu
      */
     void help();
+
+    /*!
+     * \brief launch a game
+     */
+    void play();
 };
 
 #endif

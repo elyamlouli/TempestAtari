@@ -6,7 +6,6 @@ Admin::~Admin()
     TTF_CloseFont(font_small);
     TTF_Quit();
     Mix_FreeMusic(soundtrack);
-    Mix_FreeMusic(shoot_sound);
     Mix_CloseAudio();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -46,7 +45,6 @@ Admin::Admin() : status(MENU)
     }
 
     soundtrack = Mix_LoadMUS("./mp3/soundtrack.mp3");
-    shoot_sound = Mix_LoadMUS("./mp3/shoot.mp3");
     Mix_PlayMusic(soundtrack, -1);
     Mix_PauseMusic();
 
@@ -81,9 +79,9 @@ void Admin::start()
         case MENU:
             menu();
             break;
-        // case PLAY:
-        //     play();
-        //     break;
+        case PLAY:
+            play();
+            break;
         case HELP:
             help();
             break;
@@ -137,11 +135,9 @@ void Admin::menu()
                 status = QUIT;
                 break;
             case SDLK_RETURN:
-                Mix_PlayMusic(shoot_sound, -1);
                 status = PLAY;
                 break;
             case SDLK_h:
-                Mix_PlayMusic(shoot_sound, 0);
                 status = HELP;
                 break;
             case SDLK_s:
@@ -200,7 +196,6 @@ void Admin::help()
                 status = QUIT;
                 break;
             case SDLK_m:
-                Mix_PlayMusic(shoot_sound, -1); 
                 status = MENU;
                 break;
             case SDLK_s:
@@ -212,4 +207,14 @@ void Admin::help()
             break;
         }
     }
+}
+
+void Admin::play()
+{
+    Game *game = new Game(window,
+                     renderer,
+                     font,
+                     font_small);
+    status = game->play();
+    delete game;
 }
