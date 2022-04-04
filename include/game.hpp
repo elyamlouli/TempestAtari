@@ -1,19 +1,20 @@
 /**
-* \file game.hpp
-* \brief Declaration file of the Game class
-* \date 09/02/2021
-* \author Antoine BALZANO and Hugo LAULLIER
-*/
+ * \file game.hpp
+ * \brief Declaration file of the Game class
+ * \date 09/02/2021
+ * \author Antoine BALZANO and Hugo LAULLIER
+ */
 #ifndef _GAME_HPP_
 #define _GAME_HPP_
 
 #include "constants.hpp"
+#include "tube.hpp"
+#include "starship.hpp"
 
 /**
-* \class Game
-* \brief Game class, represent a tetris game, 3 possibilities : 
-* single human player / human vs IA / IA demonstration
-*/
+ * \class Game
+ * \brief Game class, represent a tetris game
+ */
 class Game
 {
 private:
@@ -29,9 +30,14 @@ private:
     /*!< normal text font */
     TTF_Font *font;
 
-     /*!< small text font */
+    /*!< small text font */
     TTF_Font *font_small;
 
+    /*!< tube */
+    Tube *tube;
+
+    /*!< starship */
+    Starship *starship;
 
 public:
     /*!
@@ -39,7 +45,6 @@ public:
      */
     Game(SDL_Window *window, SDL_Renderer *renderer,
          TTF_Font *font, TTF_Font *font_small);
-
 
     /*!
      * \brief Destructor of the class Game
@@ -54,13 +59,12 @@ public:
                    double *counter,
                    double *counter_input_delay);
 
-
     /*!
      * \brief create a loop wanting for a key press to exit the score screen
      * \param status : status of the game
      */
     void score_screen_loop(status_t *status);
-    
+
     /*!
      * \brief launch a game
      */

@@ -216,5 +216,9 @@ void Admin::play()
                      font,
                      font_small);
     status = game->play();
+    printf("YOOO");
     delete game;
+    printf("YAAA");
+    std::cout.flush();
+
 }

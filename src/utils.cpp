@@ -15,3 +15,16 @@ void render_text(SDL_Renderer *renderer, TTF_Font *font,
     SDL_FreeSurface(message);
     SDL_DestroyTexture(texture);
 }
+
+void transfo2D(std::pair<int, int> A, std::pair<int, int> B, int px, int py, double &new_px, double &new_py) {
+    double p = 0.08;
+    int center_shift = 400;
+
+    int ABx = B.first - A.first;
+    int ABy = B.second - A.second;
+    double normAB = sqrt(ABx*ABx + ABy*ABy);
+    double ux = ABx / normAB;
+    double uy = ABy / normAB;
+    new_px = (ux*px - uy*py + A.first)*p + center_shift;
+    new_py = (uy*px + ux*py + A.second)*p + center_shift; 
+}
