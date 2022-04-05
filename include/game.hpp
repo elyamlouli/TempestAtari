@@ -10,6 +10,7 @@
 #include "constants.hpp"
 #include "tube.hpp"
 #include "starship.hpp"
+#include "missile.hpp"
 
 /**
  * \class Game
@@ -38,6 +39,9 @@ private:
 
     /*!< starship */
     Starship *starship;
+
+    /*!< missiles */
+    std::vector<Missile*> missiles;
 
 public:
     /*!

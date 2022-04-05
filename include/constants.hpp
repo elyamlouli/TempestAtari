@@ -28,6 +28,7 @@
 enum status_t {IN_GAME, QUIT, PLAY, MENU, HELP}; 
 
 
+#define MIN_DEPTH_COEF 0.007
 
 /** 
  * \def WINDOW_W

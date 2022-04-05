@@ -27,17 +27,13 @@ void Tube::display()
         double normAB = sqrt(ABx*ABx + ABy*ABy);
 
         double px1, py1;
-        transfo2D(vertices[i], vertices[(i+1)%vertices.size()], 0, 0, px1, py1);
+        transfo2D(vertices[i], vertices[(i+1)%vertices.size()], 0, 0, px1, py1, MIN_DEPTH_COEF, false);
 
         double px2, py2;
-        transfo2D(vertices[i], vertices[(i+1)%vertices.size()], normAB, 0, px2, py2);
-
-        double p = 0.7;
-        int center_shift = 400;
+        transfo2D(vertices[i], vertices[(i+1)%vertices.size()], normAB, 0, px2, py2, MIN_DEPTH_COEF, false);
         
         SDL_RenderDrawLine(renderer, px1, py1, px2, py2);
         SDL_RenderDrawLine(renderer, vertices[i].first, vertices[i].second, px1, py1);
-
     }
 }
 

@@ -26,6 +26,7 @@ status_t Game::play()
     status_t status = IN_GAME;
     bool game_over = false;
     int score = 0;
+    
     while (status == IN_GAME)
     {
         if (!game_over)
@@ -94,6 +95,9 @@ void Game::game_loop(status_t *status, double *delta_t, double *counter, double 
             case SDLK_RIGHT:
                 starship->move_right();
                 break;
+            case SDLK_SPACE:
+                Missile *missile = new Missile(renderer, tube, starship->get_position());
+                missiles.push_back(missile);
             }
             break;
         default:
@@ -107,7 +111,19 @@ void Game::game_loop(status_t *status, double *delta_t, double *counter, double 
 
     tube->display();
     starship->display();
-
+    for (auto& missile : missiles) {
+        missile->move();
+        if (missile->get_depth() <= MIN_DEPTH_COEF)
+        {
+            delete missile;
+            missile = nullptr;
+        }
+        else
+        {
+            missile->display();
+        }
+    }
+    missiles.erase(std::remove(missiles.begin(), missiles.end(), nullptr), missiles.end());
     SDL_RenderPresent(renderer);
 }
 

@@ -13,6 +13,6 @@
 * \brief render text in canevas at position x,y
 */
 void render_text(SDL_Renderer *renderer, TTF_Font *font, int x, int y, const char *text);
-void transfo2D(std::pair<int, int> A, std::pair<int, int> B, int px, int py, double &new_px, double &new_py);
+void transfo2D(std::pair<int, int> A, std::pair<int, int> B, int px, int py, double &new_px, double &new_py, double depth_coef, bool middle);
 
 #endif
