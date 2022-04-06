@@ -53,6 +53,8 @@ private:
 
     int lives;
 
+    bool superzapper;
+
 public:
     /*!
      * \brief Constructor of the class Game

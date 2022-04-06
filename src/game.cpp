@@ -9,6 +9,7 @@ Game::Game(SDL_Window *window, SDL_Renderer *renderer,
     score = 0;
     level = 1;
     lives = 5;
+    superzapper = true;
     tube = new Tube(renderer, 0);
     starship = new Starship(renderer, 0, tube);
     for (int i = 0; i < MAX_NUMBER_ENNEMIES; i++)
@@ -95,24 +96,30 @@ bool Game::game_loop(status_t *status, double *delta_t, double *counter, double 
                 starship->move_right();
                 continue;
             case SDLK_z:
-                for (auto &missile : missiles)
+                if (superzapper)
                 {
-                    delete missile;
-                    missile = nullptr;
-                }
-                missiles.erase(std::remove(missiles.begin(), missiles.end(), nullptr), missiles.end());
-
-                for (auto &ennemy : ennemies)
-                {
-                    if (ennemy->get_time() <= *counter)
+                    for (auto &missile : missiles)
                     {
-                        delete ennemy;
-                        ennemy = nullptr;
-                        score += 100;
+                        delete missile;
+                        missile = nullptr;
                     }
+                    missiles.erase(std::remove(missiles.begin(), missiles.end(), nullptr), missiles.end());
+
+                    for (auto &ennemy : ennemies)
+                    {
+                        if (ennemy->get_time() <= *counter)
+                        {
+                            delete ennemy;
+                            ennemy = nullptr;
+                            score += 100;
+                        }
+                    }
+                    ennemies.erase(std::remove(ennemies.begin(), ennemies.end(), nullptr), ennemies.end());
+
+                    superzapper = false;
+                    continue;
                 }
-                ennemies.erase(std::remove(ennemies.begin(), ennemies.end(), nullptr), ennemies.end());
-                continue;
+                break;
             case SDLK_SPACE:
                 missiles.push_back(new Missile(renderer, tube, starship->get_position()));
                 continue;
@@ -222,7 +229,7 @@ bool Game::game_loop(status_t *status, double *delta_t, double *counter, double 
     SDL_RenderPresent(renderer);
     if (*counter >= 20)
     {
-        return false;
+        level += 1;
     }
     if (lives == 0)
     {
@@ -248,6 +255,11 @@ void Game::display_infos()
     CHECK_SNPRINFT(snprintf(text, BUFF_SIZE, "Lives : %d", lives));
     TTF_SizeText(font_small, text, &width_text, NULL);
     render_text(renderer, font_small, 800 - width_text - 40, 40, text);
+
+    if (superzapper)
+    {
+        render_text(renderer, font_small, 40, 800 - 80, "SUPERZAPPER");
+    }
 
     delete[] text;
 }
@@ -303,7 +315,6 @@ void Game::score_screen_loop(status_t *status)
 
     TTF_SetFontStyle(font_small, TTF_STYLE_NORMAL);
 
-
     TTF_SetFontStyle(font_small, TTF_STYLE_ITALIC);
 
     TTF_SizeText(font_small, "Press M - menu", &width_text, NULL);
@@ -317,5 +328,4 @@ void Game::score_screen_loop(status_t *status)
     SDL_RenderPresent(renderer);
 
     delete[] text;
-
 }
