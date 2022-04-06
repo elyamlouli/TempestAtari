@@ -13,6 +13,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include "SDL2/SDL_mixer.h"
+#include <random>
 #include <algorithm>
 #include <utility>
 #include <stdlib.h>
@@ -28,7 +29,11 @@
 enum status_t {IN_GAME, QUIT, PLAY, MENU, HELP}; 
 
 
-#define MIN_DEPTH_COEF 0.007
+#define MIN_DEPTH_COEF 0.07
+
+#define MAX_NUMBER_ENNEMIES 20
+
+#define TIME_LEVEL 20
 
 /** 
  * \def WINDOW_W

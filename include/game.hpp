@@ -11,6 +11,7 @@
 #include "tube.hpp"
 #include "starship.hpp"
 #include "missile.hpp"
+#include "ennemy.hpp"
 
 /**
  * \class Game
@@ -41,7 +42,16 @@ private:
     Starship *starship;
 
     /*!< missiles */
-    std::vector<Missile*> missiles;
+    std::vector<Missile *> missiles;
+
+    /*!< ennemies */
+    std::vector<Ennemy *> ennemies;
+
+    int score;
+
+    int level;
+
+    int lives;
 
 public:
     /*!
@@ -58,7 +68,7 @@ public:
     /*!
      * \brief method handling inputs of players, board and all other attributes
      */
-    void game_loop(status_t *status,
+    bool game_loop(status_t *status,
                    double *delta_t,
                    double *counter,
                    double *counter_input_delay);
@@ -68,6 +78,7 @@ public:
      * \param status : status of the game
      */
     void score_screen_loop(status_t *status);
+    void display_infos();
 
     /*!
      * \brief launch a game

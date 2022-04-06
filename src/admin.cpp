@@ -171,7 +171,7 @@ void Admin::help()
     render_text(renderer, font_small, offset_x, offset_y + 150,
                 "Spacebar : fire");
     render_text(renderer, font_small, offset_x, offset_y + 200,
-                "Enter : superzapper");
+                "Z : superzapper");
     render_text(renderer, font_small, offset_x, offset_y + 250,
                 "S : play/stop music");
     TTF_SizeText(font_small, "Press M - return to menu", 
@@ -216,10 +216,6 @@ void Admin::play()
                      font,
                      font_small);
     status = game->play();
-    printf("YOOO");
-    std::cout.flush();
     delete game;
-    printf("YAAA");
-    std::cout.flush();
 
 }

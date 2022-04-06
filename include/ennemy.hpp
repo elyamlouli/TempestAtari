@@ -4,13 +4,13 @@
 * \date 04/02/2022
 * \author Vagnona ANDRIANANDRASANA-DINA and Théo BASTIEN
 */
-#ifndef _MISSILE_HPP_
-#define _MISSILE_HPP_
+#ifndef _ENNEMY_HPP_
+#define _ENNEMY_HPP_
 
 #include "constants.hpp"
 #include "tube.hpp"
 
-class Missile
+class Ennemy
 {
 private:
     /*!< SDL renderer */
@@ -19,23 +19,26 @@ private:
     /*!< tube */
     Tube *tube;
 
-    /*!< Missile position */
+    /*!< Ennemy position */
     int position;
 
-    /*!< Missile depth */
+    /*!< Ennemy depth */
     double depth;
 
     double z;
 
+    double time;
+
 public:
     /*!
-     * \brief Constructor of the class Missile
+     * \brief Constructor of the class Ennemy
      */
-    Missile(SDL_Renderer *renderer, Tube *tube, int position);
+    Ennemy(SDL_Renderer *renderer, Tube *tube, int position, double time);
 
     void display();
     void move();
     double get_depth();
+    double get_time();
     int get_position();
 };
 

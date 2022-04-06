@@ -29,3 +29,8 @@ double Missile::get_depth()
 {
     return depth;
 }
+
+int Missile::get_position()
+{
+    return position;
+}
