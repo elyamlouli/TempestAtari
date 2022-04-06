@@ -41,35 +41,22 @@ status_t Game::play()
 
     while (status == IN_GAME)
     {
-        if (!game_over)
-        {
-            // update timers and counters
-            prev = now;
-            now = SDL_GetPerformanceCounter();
-            delta_t = (double)((now - prev) /
-                               (double)SDL_GetPerformanceFrequency());
-            counter += delta_t;
-            counter_input_delay += delta_t;
-            game_over = game_loop(&status, &delta_t, &counter, &counter_input_delay);
-        }
-        else
+        prev = now;
+        now = SDL_GetPerformanceCounter();
+        delta_t = (double)((now - prev) /
+                           (double)SDL_GetPerformanceFrequency());
+        counter += delta_t;
+        counter_input_delay += delta_t;
+        game_over = game_loop(&status, &delta_t, &counter, &counter_input_delay);
+
+        if (game_over)
         {
             break;
         }
     }
     while (status == IN_GAME)
     {
-        // update timers and counters
-        prev = now;
-        now = SDL_GetPerformanceCounter();
-        delta_t = (double)((now - prev) /
-                           (double)SDL_GetPerformanceFrequency());
         score_screen_loop(&status);
-
-        // Cap to 60 FPS
-        int delay_ms = (int)floor(16.666f - delta_t);
-        if (delay_ms < 100 && delay_ms > 0)
-            SDL_Delay(delay_ms);
     }
     return status;
 }
@@ -143,7 +130,6 @@ bool Game::game_loop(status_t *status, double *delta_t, double *counter, double 
     tube->display();
     starship->display();
 
-
     for (auto &ennemy : ennemies)
     {
         if (ennemy->get_time() <= *counter)
@@ -163,7 +149,6 @@ bool Game::game_loop(status_t *status, double *delta_t, double *counter, double 
         }
     }
     ennemies.erase(std::remove(ennemies.begin(), ennemies.end(), nullptr), ennemies.end());
-
 
     for (auto &missile : missiles)
     {
@@ -235,9 +220,13 @@ bool Game::game_loop(status_t *status, double *delta_t, double *counter, double 
     display_infos();
 
     SDL_RenderPresent(renderer);
-    if (*counter >= 20 || lives == 0)
+    if (*counter >= 20)
     {
         return false;
+    }
+    if (lives == 0)
+    {
+        return true;
     }
     return false;
 }
@@ -254,7 +243,7 @@ void Game::display_infos()
     CHECK_SNPRINFT(snprintf(text, BUFF_SIZE, "LEVEL %d", level));
     TTF_SizeText(font_small, text, &width_text, NULL);
     render_text(renderer, font_small, (WINDOW_W - width_text) / 2, 40, text);
-    TTF_SetFontStyle(font, TTF_STYLE_NORMAL);
+    TTF_SetFontStyle(font_small, TTF_STYLE_NORMAL);
 
     CHECK_SNPRINFT(snprintf(text, BUFF_SIZE, "Lives : %d", lives));
     TTF_SizeText(font_small, text, &width_text, NULL);
@@ -290,4 +279,43 @@ void Game::score_screen_loop(status_t *status)
             break;
         }
     }
+
+    char *text = new char[BUFF_SIZE];
+    int width_text;
+
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+
+    TTF_SetFontStyle(font, TTF_STYLE_BOLD);
+    TTF_SizeText(font, "GAME OVER", &width_text, NULL);
+    render_text(renderer, font, (WINDOW_W - width_text) / 2, 50, "GAME OVER");
+    TTF_SetFontStyle(font, TTF_STYLE_NORMAL);
+
+    TTF_SetFontStyle(font_small, TTF_STYLE_BOLD);
+
+    CHECK_SNPRINFT(snprintf(text, BUFF_SIZE, "LEVEL %d REACHED", level));
+    TTF_SizeText(font_small, text, &width_text, NULL);
+    render_text(renderer, font_small, (WINDOW_W - width_text) / 2, 200, text);
+
+    CHECK_SNPRINFT(snprintf(text, BUFF_SIZE, "SCORE : %d", score));
+    TTF_SizeText(font_small, text, &width_text, NULL);
+    render_text(renderer, font_small, (WINDOW_W - width_text) / 2, 250, text);
+
+    TTF_SetFontStyle(font_small, TTF_STYLE_NORMAL);
+
+
+    TTF_SetFontStyle(font_small, TTF_STYLE_ITALIC);
+
+    TTF_SizeText(font_small, "Press M - menu", &width_text, NULL);
+    render_text(renderer, font_small, (WINDOW_W - width_text) / 2, 525, "Press M - menu");
+
+    TTF_SizeText(font_small, "Press Escape - quit", &width_text, NULL);
+    render_text(renderer, font_small, (WINDOW_W - width_text) / 2, 600, "Press Escape - quit");
+
+    TTF_SetFontStyle(font_small, TTF_STYLE_NORMAL);
+
+    SDL_RenderPresent(renderer);
+
+    delete[] text;
+
 }

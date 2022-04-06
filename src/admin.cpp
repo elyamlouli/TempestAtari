@@ -96,30 +96,6 @@ void Admin::start()
 
 void Admin::menu()
 {
-    int width_text;
-
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
-    TTF_SetFontStyle(font, TTF_STYLE_BOLD);
-    TTF_SizeText(font, "TEMPEST ATARI", &width_text, NULL);
-    render_text(renderer, font, (WINDOW_W - width_text)/2, 50, "TEMPEST ATARI");
-
-    TTF_SetFontStyle(font, TTF_STYLE_NORMAL);
-    TTF_SetFontStyle(font_small, TTF_STYLE_ITALIC);
-
-    TTF_SizeText(font_small, "Press ENTER - play", &width_text, NULL);
-    render_text(renderer, font_small, (WINDOW_W - width_text)/2, 300, "Press ENTER - play");
-
-
-    TTF_SizeText(font_small, "Press H - display help", &width_text, NULL);
-    render_text(renderer, font_small, (WINDOW_W - width_text)/2, 375, "Press H - display help");
-
-    TTF_SizeText(font_small, "Press Escape - quit", &width_text, NULL);
-    render_text(renderer, font_small, (WINDOW_W - width_text)/2, 450, "Press Escape - quit");
-
-    TTF_SetFontStyle(font_small, TTF_STYLE_NORMAL);
-    SDL_RenderPresent(renderer);
-
     while (status == MENU && SDL_PollEvent(&event))
     {
 
@@ -149,6 +125,30 @@ void Admin::menu()
             break;
         }
     }
+    int width_text;
+
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+    TTF_SetFontStyle(font, TTF_STYLE_BOLD);
+    TTF_SizeText(font, "TEMPEST ATARI", &width_text, NULL);
+    render_text(renderer, font, (WINDOW_W - width_text)/2, 50, "TEMPEST ATARI");
+
+    TTF_SetFontStyle(font, TTF_STYLE_NORMAL);
+    TTF_SetFontStyle(font_small, TTF_STYLE_ITALIC);
+
+    TTF_SizeText(font_small, "Press ENTER - play", &width_text, NULL);
+    render_text(renderer, font_small, (WINDOW_W - width_text)/2, 300, "Press ENTER - play");
+
+
+    TTF_SizeText(font_small, "Press H - display help", &width_text, NULL);
+    render_text(renderer, font_small, (WINDOW_W - width_text)/2, 375, "Press H - display help");
+
+    TTF_SizeText(font_small, "Press Escape - quit", &width_text, NULL);
+    render_text(renderer, font_small, (WINDOW_W - width_text)/2, 450, "Press Escape - quit");
+
+    TTF_SetFontStyle(font_small, TTF_STYLE_NORMAL);
+    SDL_RenderPresent(renderer);
+
 }
 
 void Admin::help()
