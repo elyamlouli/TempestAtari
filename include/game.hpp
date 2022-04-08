@@ -15,7 +15,7 @@
 
 /**
  * \class Game
- * \brief Game class, represent a Tempest Atari game
+ * \brief Game class, represent a Tempest game
  */
 class Game
 {

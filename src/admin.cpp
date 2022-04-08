@@ -52,7 +52,7 @@ Admin::Admin() : status(MENU)
     TTF_Init();
 
     // Window
-    window = SDL_CreateWindow("Tempest Atari",
+    window = SDL_CreateWindow("Tempest",
                               SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED,
                               WINDOW_W,
@@ -130,8 +130,8 @@ void Admin::menu()
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     TTF_SetFontStyle(font, TTF_STYLE_BOLD);
-    TTF_SizeText(font, "TEMPEST ATARI", &width_text, NULL);
-    render_text(renderer, font, (WINDOW_W - width_text)/2, 50, "TEMPEST ATARI");
+    TTF_SizeText(font, "TEMPEST", &width_text, NULL);
+    render_text(renderer, font, (WINDOW_W - width_text)/2, 50, "TEMPEST");
 
     TTF_SetFontStyle(font, TTF_STYLE_NORMAL);
     TTF_SetFontStyle(font_small, TTF_STYLE_ITALIC);
