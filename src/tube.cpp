@@ -4,7 +4,7 @@ Tube::Tube(SDL_Renderer *renderer, int level) : renderer(renderer),
                                                 level(level)
 {
     // SQUARE
-    if (level == 0)
+    if (level == 1)
     {
         vertices.push_back(std::make_pair(200, 200));
         vertices.push_back(std::make_pair(600, 200));
@@ -12,21 +12,8 @@ Tube::Tube(SDL_Renderer *renderer, int level) : renderer(renderer),
         vertices.push_back(std::make_pair(200, 600));
     }
 
-    // FLOWER
-    if (level == 1)
-    {
-        vertices.push_back(std::make_pair(150, 150));
-        vertices.push_back(std::make_pair(400, 200));
-        vertices.push_back(std::make_pair(650, 150));
-        vertices.push_back(std::make_pair(600, 400));
-        vertices.push_back(std::make_pair(650, 650));
-        vertices.push_back(std::make_pair(400, 600));
-        vertices.push_back(std::make_pair(150, 650));
-        vertices.push_back(std::make_pair(200, 400));
-    }
-
     // OCTOGONE
-    if (level == 3)
+    if (level == 2)
     {
         vertices.push_back(std::make_pair(200, 200));
         vertices.push_back(std::make_pair(400, 100));
@@ -36,6 +23,19 @@ Tube::Tube(SDL_Renderer *renderer, int level) : renderer(renderer),
         vertices.push_back(std::make_pair(400, 700));
         vertices.push_back(std::make_pair(200, 600));
         vertices.push_back(std::make_pair(100, 400));
+    }
+
+    // FLOWER
+    if (level == 3)
+    {
+        vertices.push_back(std::make_pair(150, 150));
+        vertices.push_back(std::make_pair(400, 200));
+        vertices.push_back(std::make_pair(650, 150));
+        vertices.push_back(std::make_pair(600, 400));
+        vertices.push_back(std::make_pair(650, 650));
+        vertices.push_back(std::make_pair(400, 600));
+        vertices.push_back(std::make_pair(150, 650));
+        vertices.push_back(std::make_pair(200, 400));
     }
 
     // INFINITY

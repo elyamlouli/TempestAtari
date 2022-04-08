@@ -30,7 +30,7 @@ void Ennemy::display()
 
 void Ennemy::move()
 {
-    z -= 0.0002;
+    z -= 0.0004; // increase this number to increase ennemy speed
     if (z >= 0)
     {
         depth = 1 - (1 - MIN_DEPTH_COEF) * sqrt(z);

@@ -31,9 +31,9 @@ enum status_t {IN_GAME, QUIT, PLAY, MENU, HELP};
 
 #define MIN_DEPTH_COEF 0.07
 
-#define MAX_NUMBER_ENNEMIES 20
+#define MAX_NUMBER_ENNEMIES 50
 
-#define TIME_LEVEL 20
+#define TIME_LEVEL 30
 
 /** 
  * \def WINDOW_W

@@ -10,14 +10,14 @@ Game::Game(SDL_Window *window, SDL_Renderer *renderer,
     level = 1;
     lives = 5;
     superzapper = true;
-    tube = new Tube(renderer, 0);
+    tube = new Tube(renderer, level);
     starship = new Starship(renderer, 0, tube);
     for (int i = 0; i < MAX_NUMBER_ENNEMIES; i++)
     {
         std::random_device rd;
         std::mt19937 gen(rd());
         std::uniform_int_distribution<> distrib_pos(0, tube->get_size() - 1);
-        std::uniform_real_distribution<> distrib_time(0, TIME_LEVEL - 6);
+        std::uniform_real_distribution<> distrib_time(0, TIME_LEVEL);
         int position_ennnemy = distrib_pos(gen);
         double time_ennnemy = distrib_time(gen);
         ennemies.push_back(new Ennemy(renderer, tube, position_ennnemy, time_ennnemy));
@@ -227,9 +227,24 @@ bool Game::game_loop(status_t *status, double *delta_t, double *counter, double 
     display_infos();
 
     SDL_RenderPresent(renderer);
-    if (*counter >= 20)
+    if (ennemies.size() == 0)
     {
         level += 1;
+        *counter = 0;
+        delete tube;
+        delete starship;
+        tube = new Tube(renderer, level);
+        starship = new Starship(renderer, 0, tube);
+        for (int i = 0; i < MAX_NUMBER_ENNEMIES; i++)
+        {
+            std::random_device rd;
+            std::mt19937 gen(rd());
+            std::uniform_int_distribution<> distrib_pos(0, tube->get_size() - 1);
+            std::uniform_real_distribution<> distrib_time(0, TIME_LEVEL);
+            int position_ennnemy = distrib_pos(gen);
+            double time_ennnemy = distrib_time(gen);
+            ennemies.push_back(new Ennemy(renderer, tube, position_ennnemy, time_ennnemy));
+        }
     }
     if (lives == 0)
     {
