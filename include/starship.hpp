@@ -1,7 +1,7 @@
 /**
-* \file utils.hpp
-* \brief Declaration file of useful general functions
-* \date 04/02/2022
+* \file starship.hpp
+* \brief Declaration file of the Starship class
+* \date 08/04/2022
 * \author Vagnona ANDRIANANDRASANA-DINA and Théo BASTIEN
 */
 #ifndef _STARSHIP_HPP_
@@ -30,15 +30,31 @@ private:
 public:
     /*!
      * \brief Constructor of the class Starship
+     * \param renderer SDL renderer
+     * \param tube tube
      */
-    Starship(SDL_Renderer *renderer, int position, Tube *tube);
+    Starship(SDL_Renderer *renderer, Tube *tube);
 
+    /*!
+     * \brief Display the starship
+     */
     void display();
 
-    void move_left(void);
-    void move_right(void);
-    int get_position(void);
-    void reset_position(void);
+    /*!
+     * \brief Move the ennemy in the left direction
+     */
+    void move_left();
+
+    /*!
+     * \brief Move the ennemy in the right direction
+     */
+    void move_right();
+
+    /*!
+     * \brief Get attribute position
+     * \return the position of the starship on the tube
+     */
+    int get_position();
 };
 
 

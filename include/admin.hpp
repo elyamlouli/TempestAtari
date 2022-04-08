@@ -1,7 +1,7 @@
 /**
 * \file admin.hpp
 * \brief Class Admin
-* \date 04/02/2022
+* \date 08/04/2022
 * \author Vagnona ANDRIANANDRASANA-DINA and Théo BASTIEN
 */
 #ifndef _ADMIN_HPP_
@@ -56,24 +56,24 @@ public:
     void load_font();
 
     /*!
-     * \brief start the game
+     * \brief Start the game
      */
     void start();
 
     /*!
-     * \brief main menu
+     * \brief Main menu
      */
     void menu();
 
     /*!
-     * \brief help menu
+     * \brief Help menu
      */
     void help();
 
     /*!
-     * \brief launch a game
+     * \brief Launch a game
      */
     void play();
 };
 
-#endif->
+#endif

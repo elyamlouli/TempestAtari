@@ -2,7 +2,7 @@
 /**
 * \file constants.hpp
 * \brief Declaration file of constants
-* \date 04/02/2022
+* \date 08/04/2022
 * \author Vagnona ANDRIANANDRASANA-DINA and Théo BASTIEN
 */
 #ifndef _CONSTANTS_HPP_
@@ -25,60 +25,60 @@
 
 /** 
  * \def DEPTH_TUBE_COEF
- * \brief coeffient that indicates the depth of the tube
+ * \brief Coeffient that indicates the depth of the tube
  */
 #define DEPTH_TUBE_COEF 0.07
 
 
 /** 
  * \def MISSILE_VELOCITY_COEF
- * \brief coefficient that indicates the velocity of a missile
+ * \brief Coefficient that indicates the velocity of a missile
  */
 #define MISSILE_VELOCITY_COEF 0.005
 
 
 /** 
  * \def ENNEMY_VELOCITY_COEF
- * \brief coefficient that indicates the velocity of an ennemy
+ * \brief Coefficient that indicates the velocity of an ennemy
  */
 #define ENNEMY_VELOCITY_COEF 0.0004
 
 
 /** 
  * \def NUMBER_ENNEMIES_PER_LEVEL
- * \brief represent the status of the game, in menu, in game, in help, etc ...
+ * \brief Number of ennemies per level
  */
 #define NUMBER_ENNEMIES_PER_LEVEL 50
 
 /** 
  * \def MAX_TIME_LEVEL
- * \brief maximum duration of a level
+ * \brief Maximum duration of a level
  */
 #define MAX_TIME_LEVEL 30
 
 /** 
  * \def WINDOW_W
- * \brief window width
+ * \brief Window width
  */
 #define WINDOW_W 800
 
 /** 
  * \def WINDOW_H
- * \brief window height
+ * \brief Window height
  */
 #define WINDOW_H 800
 
 
 /** 
  * \def status_t
- * \brief represent the status of the game, in menu, in game, in help, etc ...
+ * \brief Represent of the game IN_GAME, QUIT, PLAY, MENU, HELP
  */
 enum status_t {IN_GAME, QUIT, PLAY, MENU, HELP}; 
 
 
 /** 
  * \def BUFF_SIZE
- * \brief buff size for static allocation
+ * \brief Buffer size for static allocation
  */
 #define BUFF_SIZE 1024
 

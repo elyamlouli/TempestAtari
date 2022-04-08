@@ -1,7 +1,7 @@
 /**
-* \file utils.hpp
-* \brief Declaration file of useful general functions
-* \date 04/02/2022
+* \file tube.hpp
+* \brief Declaration file of the class Tube
+* \date 08/04/2022
 * \author Vagnona ANDRIANANDRASANA-DINA and Théo BASTIEN
 */
 #ifndef _TUBE_HPP_
@@ -31,18 +31,28 @@ private:
 public:
     /*!
      * \brief Constructor of the class Tube
+     * \param renderer SDL renderer
+     * \param level level
      */
     Tube(SDL_Renderer *renderer, int level);
 
     /*!
-     * \brief Destructor of the class Tube
+     * \brief Display the tube
      */
-    ~Tube();
-
     void display();
 
+    /*!
+     * \brief Get coordinates that indicates the vertex position on the screen
+     * \param position position of the vertex on the tube
+     * \return coordinates of the left corner of the peripheric segment at 
+     * the periphery of a vertex of the tube
+     */
     std::pair<int, int> get_vertex(int position);
 
+    /*!
+     * \brief Get the size of the attribute vertices
+     * \return the number of vertices in the tube
+     */
     int get_size();
 };
 

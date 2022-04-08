@@ -1,7 +1,6 @@
 #include "../include/starship.hpp"
 
-Starship::Starship(SDL_Renderer *renderer, int position, Tube *tube) : renderer(renderer),
-                                                position(position), tube(tube) {}
+Starship::Starship(SDL_Renderer *renderer, Tube *tube) : renderer(renderer), tube(tube) {}
 
 void Starship::display()
 {
@@ -24,21 +23,17 @@ void Starship::display()
     SDL_RenderDrawLine(renderer, tube->get_vertex(position+1).first, tube->get_vertex(position+1).second, px2, py2);
 }
 
-void Starship::move_left(void) {
+void Starship::move_left() {
     position = position - 1;
     if (position < 0) {
         position = tube->get_size() - 1;
     }
 }
 
-void Starship::move_right(void) {
+void Starship::move_right() {
     position = (position + 1)%(tube->get_size());
 }
 
-int Starship::get_position(void) {
+int Starship::get_position() {
     return position;
-}
-
-void Starship::reset_position(void) {
-    position = 0;
 }

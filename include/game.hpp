@@ -1,8 +1,8 @@
 /**
  * \file game.hpp
  * \brief Declaration file of the Game class
- * \date 09/02/2021
- * \author Antoine BALZANO and Hugo LAULLIER
+ * \date 08/04/2022
+ * \author Vagnona ANDRIANANDRASANA-DINA and Théo BASTIEN
  */
 #ifndef _GAME_HPP_
 #define _GAME_HPP_
@@ -15,7 +15,7 @@
 
 /**
  * \class Game
- * \brief Game class, represent a tetris game
+ * \brief Game class, represent a Tempest Atari game
  */
 class Game
 {
@@ -47,17 +47,25 @@ private:
     /*!< ennemies */
     std::vector<Ennemy *> ennemies;
 
+    /*!< score */
     int score;
 
+    /*!< level */
     int level;
 
+    /*!< lives remaining */
     int lives;
 
+    /*!< usability of the superzapper */
     bool superzapper;
 
 public:
     /*!
      * \brief Constructor of the class Game
+     * \param window SDL window
+     * \param renderer SDL renderer
+     * \param font normal text font
+     * \param font_small small text font
      */
     Game(SDL_Window *window, SDL_Renderer *renderer,
          TTF_Font *font, TTF_Font *font_small);
@@ -68,22 +76,28 @@ public:
     ~Game();
 
     /*!
-     * \brief method handling inputs of players, board and all other attributes
+     * \brief Loop that handles the operation of the game
+     * \param status status of the game
+     * \param counter time from the begining od the launched game
+     * \return boolean to know if the game is over
      */
     bool game_loop(status_t *status,
-                   double *delta_t,
-                   double *counter,
-                   double *counter_input_delay);
+                   double *counter);
 
     /*!
-     * \brief create a loop wanting for a key press to exit the score screen
-     * \param status : status of the game
+     * \brief Loop that handles the display of the end the game
+     * \param status status of the game
      */
     void score_screen_loop(status_t *status);
+
+    /*!
+     * \brief Display infos of the game (score, level, lives and superzapper)
+     */
     void display_infos();
 
     /*!
-     * \brief launch a game
+     * \brief Launch a game
+     * \return status of the game
      */
     status_t play();
 };

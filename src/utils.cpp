@@ -38,20 +38,6 @@ void transfo2D(std::pair<int, int> A, std::pair<int, int> B, int px, int py, dou
 
 }
 
-
-[[noreturn]] void handle_error(const char *msg, ...)
-{
-    va_list ap;
-
-    va_start(ap, msg);
-    vfprintf(stderr, "error : ", ap);
-    vfprintf(stderr, msg, ap);
-    fprintf(stderr, "\n");
-    va_end(ap);
-
-    exit(EXIT_FAILURE);
-}
-
 [[noreturn]] void handle_perror(const char *msg, ...)
 {
     va_list ap;

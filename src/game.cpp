@@ -11,7 +11,7 @@ Game::Game(SDL_Window *window, SDL_Renderer *renderer,
     lives = 5;
     superzapper = true;
     tube = new Tube(renderer, level);
-    starship = new Starship(renderer, 0, tube);
+    starship = new Starship(renderer, tube);
     for (int i = 0; i < NUMBER_ENNEMIES_PER_LEVEL; i++)
     {
         std::random_device rd;
@@ -35,7 +35,6 @@ status_t Game::play()
     Uint64 prev, now = SDL_GetPerformanceCounter(); // timers
     double delta_t;                                 // frame duration in ms
     double counter = 0;
-    double counter_input_delay = 0;
 
     status_t status = IN_GAME;
     bool game_over = false;
@@ -47,8 +46,7 @@ status_t Game::play()
         delta_t = (double)((now - prev) /
                            (double)SDL_GetPerformanceFrequency());
         counter += delta_t;
-        counter_input_delay += delta_t;
-        game_over = game_loop(&status, &delta_t, &counter, &counter_input_delay);
+        game_over = game_loop(&status, &counter);
 
         if (game_over)
         {
@@ -62,7 +60,7 @@ status_t Game::play()
     return status;
 }
 
-bool Game::game_loop(status_t *status, double *delta_t, double *counter, double *counter_input_delay)
+bool Game::game_loop(status_t *status, double *counter)
 {
     // Key management
     while (*status == IN_GAME && SDL_PollEvent(&event))
@@ -231,11 +229,10 @@ bool Game::game_loop(status_t *status, double *delta_t, double *counter, double 
     {
         level += 1;
         *counter = 0;
-        starship->reset_position();
         delete tube;
         delete starship;
         tube = new Tube(renderer, level);
-        starship = new Starship(renderer, 0, tube);
+        starship = new Starship(renderer, tube);
         for (int i = 0; i < NUMBER_ENNEMIES_PER_LEVEL; i++)
         {
             std::random_device rd;
