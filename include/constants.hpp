@@ -9,18 +9,11 @@
 #define _CONSTANTS_HPP_
 
 #include <vector>
-#include <stdarg.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include "SDL2/SDL_mixer.h"
 #include <random>
 #include <algorithm>
-#include <utility>
-#include <stdlib.h>
-#include <time.h>
-#include <iostream>
-#include <sstream>
-#include <climits>
 
 
 /** 
