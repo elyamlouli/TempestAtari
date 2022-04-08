@@ -4,7 +4,7 @@ Tube::Tube(SDL_Renderer *renderer, int level) : renderer(renderer),
                                                 level(level)
 {
     // SQUARE
-    if (level == 100)
+    if (level == 1)
     {
         vertices.push_back(std::make_pair(200, 200));
         vertices.push_back(std::make_pair(600, 200));
@@ -39,7 +39,7 @@ Tube::Tube(SDL_Renderer *renderer, int level) : renderer(renderer),
     }
 
     // INFINITY
-    if (level == 1)
+    if (level == 4)
     {
         vertices.push_back(std::make_pair(100, 400));
         vertices.push_back(std::make_pair(200, 300));
