@@ -13,10 +13,10 @@ void Starship::display()
     double normAB = sqrt(ABx*ABx + ABy*ABy);
 
     double px1, py1;
-    transfo2D(tube->get_vertex(position), tube->get_vertex(position+1), 0, 0, px1, py1, MIN_DEPTH_COEF, false);
+    transfo2D(tube->get_vertex(position), tube->get_vertex(position+1), 0, 0, px1, py1, DEPTH_TUBE_COEF, false);
 
     double px2, py2;
-    transfo2D(tube->get_vertex(position), tube->get_vertex(position+1), normAB, 0, px2, py2, MIN_DEPTH_COEF, false);
+    transfo2D(tube->get_vertex(position), tube->get_vertex(position+1), normAB, 0, px2, py2, DEPTH_TUBE_COEF, false);
 
     
     SDL_RenderDrawLine(renderer, px1, py1, px2, py2);
@@ -37,4 +37,8 @@ void Starship::move_right(void) {
 
 int Starship::get_position(void) {
     return position;
+}
+
+void Starship::reset_position(void) {
+    position = 0;
 }

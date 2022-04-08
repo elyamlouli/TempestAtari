@@ -12,12 +12,12 @@ Game::Game(SDL_Window *window, SDL_Renderer *renderer,
     superzapper = true;
     tube = new Tube(renderer, level);
     starship = new Starship(renderer, 0, tube);
-    for (int i = 0; i < MAX_NUMBER_ENNEMIES; i++)
+    for (int i = 0; i < NUMBER_ENNEMIES_PER_LEVEL; i++)
     {
         std::random_device rd;
         std::mt19937 gen(rd());
         std::uniform_int_distribution<> distrib_pos(0, tube->get_size() - 1);
-        std::uniform_real_distribution<> distrib_time(0, TIME_LEVEL);
+        std::uniform_real_distribution<> distrib_time(0, MAX_TIME_LEVEL);
         int position_ennnemy = distrib_pos(gen);
         double time_ennnemy = distrib_time(gen);
         ennemies.push_back(new Ennemy(renderer, tube, position_ennnemy, time_ennnemy));
@@ -160,7 +160,7 @@ bool Game::game_loop(status_t *status, double *delta_t, double *counter, double 
     for (auto &missile : missiles)
     {
         missile->move();
-        if (missile->get_depth() <= MIN_DEPTH_COEF)
+        if (missile->get_depth() <= DEPTH_TUBE_COEF)
         {
             delete missile;
             missile = nullptr;
@@ -231,20 +231,22 @@ bool Game::game_loop(status_t *status, double *delta_t, double *counter, double 
     {
         level += 1;
         *counter = 0;
+        starship->reset_position();
         delete tube;
         delete starship;
         tube = new Tube(renderer, level);
         starship = new Starship(renderer, 0, tube);
-        for (int i = 0; i < MAX_NUMBER_ENNEMIES; i++)
+        for (int i = 0; i < NUMBER_ENNEMIES_PER_LEVEL; i++)
         {
             std::random_device rd;
             std::mt19937 gen(rd());
             std::uniform_int_distribution<> distrib_pos(0, tube->get_size() - 1);
-            std::uniform_real_distribution<> distrib_time(0, TIME_LEVEL);
+            std::uniform_real_distribution<> distrib_time(0, MAX_TIME_LEVEL);
             int position_ennnemy = distrib_pos(gen);
             double time_ennnemy = distrib_time(gen);
-            ennemies.push_back(new Ennemy(renderer, tube, position_ennnemy, time_ennnemy));
+            ennemies.push_back(new Ennemy(renderer, tube, position_ennnemy, time_ennnemy));    
         }
+        superzapper = true;
     }
     if (lives == 0)
     {
@@ -269,11 +271,11 @@ void Game::display_infos()
 
     CHECK_SNPRINFT(snprintf(text, BUFF_SIZE, "Lives : %d", lives));
     TTF_SizeText(font_small, text, &width_text, NULL);
-    render_text(renderer, font_small, 800 - width_text - 40, 40, text);
+    render_text(renderer, font_small, WINDOW_W - width_text - 40, 40, text);
 
     if (superzapper)
     {
-        render_text(renderer, font_small, 40, 800 - 80, "SUPERZAPPER");
+        render_text(renderer, font_small, 40, WINDOW_H - 80, "SUPERZAPPER");
     }
 
     delete[] text;

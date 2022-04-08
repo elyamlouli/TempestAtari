@@ -21,8 +21,8 @@ void Missile::display()
 
 void Missile::move()
 {
-    z += 0.005;
-    depth = 1/(1 + (1 - MIN_DEPTH_COEF)*z*z);
+    z += MISSILE_VELOCITY_COEF;
+    depth = 1/(1 + (1 - DEPTH_TUBE_COEF)*z*z);
 }
 
 double Missile::get_depth()

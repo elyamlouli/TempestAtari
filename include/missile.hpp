@@ -1,6 +1,6 @@
 /**
-* \file utils.hpp
-* \brief Declaration file of useful general functions
+* \file missile.hpp
+* \brief Declaration file of the Missile class
 * \date 04/02/2022
 * \author Vagnona ANDRIANANDRASANA-DINA and Théo BASTIEN
 */

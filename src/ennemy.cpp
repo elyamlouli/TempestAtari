@@ -2,7 +2,7 @@
 
 Ennemy::Ennemy(SDL_Renderer *renderer, Tube *tube, int position, double time) : renderer(renderer), tube(tube), position(position), time(time)
 {
-    depth = MIN_DEPTH_COEF;
+    depth = DEPTH_TUBE_COEF;
     z = 1;
 }
 
@@ -30,10 +30,10 @@ void Ennemy::display()
 
 void Ennemy::move()
 {
-    z -= 0.0004; // increase this number to increase ennemy speed
+    z -= ENNEMY_VELOCITY_COEF;
     if (z >= 0)
     {
-        depth = 1 - (1 - MIN_DEPTH_COEF) * sqrt(z);
+        depth = 1 - (1 - DEPTH_TUBE_COEF) * sqrt(z);
     }
     else 
     {
