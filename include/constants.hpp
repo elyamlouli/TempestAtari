@@ -27,27 +27,27 @@
  * \def MISSILE_VELOCITY_COEF
  * \brief Coefficient that indicates the velocity of a missile
  */
-#define MISSILE_VELOCITY_COEF 0.005
+#define MISSILE_VELOCITY_COEF 0.05
 
 
 /** 
  * \def ENNEMY_VELOCITY_COEF
  * \brief Coefficient that indicates the velocity of an ennemy
  */
-#define ENNEMY_VELOCITY_COEF 0.0004
+#define ENNEMY_VELOCITY_COEF 0.007
 
 
 /** 
  * \def NUMBER_ENNEMIES_PER_LEVEL
  * \brief Number of ennemies per level
  */
-#define NUMBER_ENNEMIES_PER_LEVEL 50
+#define NUMBER_ENNEMIES_PER_LEVEL 20
 
 /** 
  * \def MAX_TIME_LEVEL
  * \brief Maximum duration of a level
  */
-#define MAX_TIME_LEVEL 30
+#define MAX_TIME_LEVEL 20
 
 /** 
  * \def WINDOW_W

@@ -26,14 +26,18 @@ Game::Game(SDL_Window *window, SDL_Renderer *renderer,
 
 Game::~Game()
 {
-    delete tube;
     delete starship;
+    for (auto &ennemy : ennemies)
+    {
+        delete ennemy;
+    }
+    delete tube;
 }
 
 status_t Game::play()
 {
-    Uint64 prev, now = SDL_GetPerformanceCounter(); // timers
-    double delta_t;                                 // frame duration in ms
+    Uint64 prev, now = SDL_GetPerformanceCounter(); 
+    double delta_t;                                 
     double counter = 0;
 
     status_t status = IN_GAME;
@@ -48,10 +52,15 @@ status_t Game::play()
         counter += delta_t;
         game_over = game_loop(&status, &counter);
 
+        int delay_ms = (int)floor(16.666f - delta_t);
+        if (delay_ms < 100 && delay_ms > 0)
+            SDL_Delay(delay_ms);
+
         if (game_over)
         {
             break;
         }
+        
     }
     while (status == IN_GAME)
     {
@@ -128,7 +137,6 @@ bool Game::game_loop(status_t *status, double *counter)
         }
     }
 
-    // Background color (black)
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
@@ -172,6 +180,7 @@ bool Game::game_loop(status_t *status, double *counter)
 
     int first_ennemies_alive_id[tube->get_size()];
     double first_ennemies_alive_depth[tube->get_size()];
+    
 
     for (int i = 0; i < tube->get_size(); i++)
     {
@@ -207,7 +216,7 @@ bool Game::game_loop(status_t *status, double *counter)
     {
         int id = missiles[i]->get_position();
 
-        if (first_missile_alive_id[id] && missiles[i]->get_depth() <= first_ennemies_alive_depth[id])
+        if (first_ennemies_alive_id[id] != -1 && first_missile_alive_id[id] && missiles[i]->get_depth() <= first_ennemies_alive_depth[id])
         {
             first_missile_alive_id[id] = false;
 
@@ -227,8 +236,19 @@ bool Game::game_loop(status_t *status, double *counter)
     SDL_RenderPresent(renderer);
     if (ennemies.size() == 0)
     {
+        for (auto &missile : missiles)
+        {
+            delete missile;
+        }
+        missiles.clear();
+
+        if (level == 4) {
+            return true;
+        }
+
         level += 1;
         *counter = 0;
+
         delete tube;
         delete starship;
         tube = new Tube(renderer, level);
@@ -241,7 +261,7 @@ bool Game::game_loop(status_t *status, double *counter)
             std::uniform_real_distribution<> distrib_time(0, MAX_TIME_LEVEL);
             int position_ennnemy = distrib_pos(gen);
             double time_ennnemy = distrib_time(gen);
-            ennemies.push_back(new Ennemy(renderer, tube, position_ennnemy, time_ennnemy));    
+            ennemies.push_back(new Ennemy(renderer, tube, position_ennnemy, time_ennnemy));
         }
         superzapper = true;
     }

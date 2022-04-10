@@ -1,6 +1,9 @@
 #include "../include/starship.hpp"
 
-Starship::Starship(SDL_Renderer *renderer, Tube *tube) : renderer(renderer), tube(tube) {}
+Starship::Starship(SDL_Renderer *renderer, Tube *tube) : renderer(renderer), tube(tube) 
+{
+    position = 0;
+}
 
 void Starship::display()
 {
