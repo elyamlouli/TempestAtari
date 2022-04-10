@@ -39,26 +39,10 @@ private:
     /*!< small text font */
     TTF_Font *font_small;
 
-public:
-    /*!
-     * \brief Constructor of the class Admin
-     */
-    Admin();
-
-    /*!
-     * \brief Destructor of the class Admin
-     */
-    ~Admin();
-
     /*!
      * \brief Load text font
      */
     void load_font();
-
-    /*!
-     * \brief Start the game
-     */
-    void start();
 
     /*!
      * \brief Main menu
@@ -74,6 +58,22 @@ public:
      * \brief Launch a game
      */
     void play();
+
+public:
+    /*!
+     * \brief Constructor of the class Admin
+     */
+    Admin();
+
+    /*!
+     * \brief Destructor of the class Admin
+     */
+    ~Admin();
+
+    /*!
+     * \brief Start the game
+     */
+    void start();
 };
 
 #endif

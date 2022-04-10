@@ -14,12 +14,15 @@ Admin::~Admin()
 
 void Admin::load_font()
 {
+    // Normal font
     font = TTF_OpenFont("./font/Hursheys.ttf", 70);
     if (font == NULL)
     {
         fprintf(stderr, "error: font not found\n");
         exit(EXIT_FAILURE);
     }
+
+    // Small font
     font_small = TTF_OpenFont("./font/Hursheys.ttf", 30);
     if (font_small == NULL)
     {
@@ -31,6 +34,7 @@ void Admin::load_font()
 
 Admin::Admin() : status(MENU)
 {
+    // SDL initializations
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
     {
         fprintf(stderr, "error: SDL Init\n");
@@ -38,7 +42,7 @@ Admin::Admin() : status(MENU)
     }
 
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) 
-        == -1) //Initialisation de l'API Mixer
+        == -1) 
     {
         fprintf(stderr, "%s", Mix_GetError());
         exit(EXIT_FAILURE);
@@ -61,19 +65,23 @@ Admin::Admin() : status(MENU)
 
     // Renderer on the window
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+    // Load font
     load_font();
 }
 
 void Admin::start()
 {
-    Uint64 prev, now = SDL_GetPerformanceCounter(); // timers
-    double delta_t;                                 // frame duration in ms
+    Uint64 prev, now = SDL_GetPerformanceCounter(); 
+    double delta_t; 
 
     while (status != QUIT)
     {
         prev = now;
         now = SDL_GetPerformanceCounter();
         delta_t = (double)((now-prev) / (double)SDL_GetPerformanceFrequency());
+
+        // Menu options
         switch (status)
         {
         case MENU:
@@ -88,6 +96,8 @@ void Admin::start()
         default:
             break;
         }
+
+        // Set to 60 fps to manage the fluidity
         int delay_ms = (int)floor(16.666f - delta_t);
         if (delay_ms < 100 && delay_ms > 0)
             SDL_Delay(delay_ms);
@@ -96,9 +106,9 @@ void Admin::start()
 
 void Admin::menu()
 {
+    // Key management
     while (status == MENU && SDL_PollEvent(&event))
     {
-
         switch (event.type)
         {
         case SDL_QUIT:
@@ -125,6 +135,8 @@ void Admin::menu()
             break;
         }
     }
+
+    // Display menu
     int width_text;
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -153,6 +165,34 @@ void Admin::menu()
 
 void Admin::help()
 {
+    // Key management
+    while (status == HELP && SDL_PollEvent(&event))
+    {
+        switch (event.type)
+        {
+        case SDL_QUIT:
+            status = QUIT;
+            break;
+        case SDL_KEYDOWN:
+            switch (event.key.keysym.sym)
+            {
+            case SDLK_ESCAPE:
+                status = QUIT;
+                break;
+            case SDLK_m:
+                status = MENU;
+                break;
+            case SDLK_s:
+                Mix_PausedMusic() ? Mix_ResumeMusic() : Mix_PauseMusic();
+                break;
+            }
+            break;
+        default:
+            break;
+        }
+    }
+
+    // Display help
     int offset_x = 40;
     int offset_y = 120;
     int width_text;
@@ -181,32 +221,6 @@ void Admin::help()
     render_text(renderer, font_small, (WINDOW_W - width_text)/2, offset_y + 550, "Press Escape - quit");
     TTF_SetFontStyle(font_small, TTF_STYLE_NORMAL);
     SDL_RenderPresent(renderer);
-
-    while (status == HELP && SDL_PollEvent(&event))
-    {
-        switch (event.type)
-        {
-        case SDL_QUIT:
-            status = QUIT;
-            break;
-        case SDL_KEYDOWN:
-            switch (event.key.keysym.sym)
-            {
-            case SDLK_ESCAPE:
-                status = QUIT;
-                break;
-            case SDLK_m:
-                status = MENU;
-                break;
-            case SDLK_s:
-                Mix_PausedMusic() ? Mix_ResumeMusic() : Mix_PauseMusic();
-                break;
-            }
-            break;
-        default:
-            break;
-        }
-    }
 }
 
 void Admin::play()

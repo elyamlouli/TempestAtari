@@ -58,6 +58,54 @@ private:
 
     /*!< usability of the superzapper */
     bool superzapper;
+    
+    /*!
+     * \brief Loop that handles the operation of the game
+     * \param status status of the game
+     * \param counter time from the begining od the launched game
+     * \return boolean to know if the game is over
+     */
+    bool game_loop(status_t *status,
+                   double *counter);
+
+    /*!
+     * \brief Create a level by creating the tube, the starship, the
+     * ennemies and the superzapper
+     */
+    void create_level();
+
+    /*!
+     * \brief If the superzapper is usable, destroy all the ennemies
+     * \param counter time from the begining od the launched game
+     */
+    void superzapper_management(int counter);
+
+    /*!
+     * \brief Move the ennemies
+     * \param counter time from the begining od the launched game
+     */
+    void move_ennemies(int counter);
+
+    /*!
+     * \brief Move the missiles
+     */
+    void move_missiles();
+
+    /*!
+     * \brief Manage destructions of ennemies by missiles
+     */
+    void manage_destructions();
+
+    /*!
+     * \brief Display infos of the game (score, level, lives and superzapper)
+     */
+    void display_infos();
+
+    /*!
+     * \brief Loop that handles the display of the end the game
+     * \param status status of the game
+     */
+    void score_screen_loop(status_t *status);
 
 public:
     /*!
@@ -74,26 +122,6 @@ public:
      * \brief Destructor of the class Game
      */
     ~Game();
-
-    /*!
-     * \brief Loop that handles the operation of the game
-     * \param status status of the game
-     * \param counter time from the begining od the launched game
-     * \return boolean to know if the game is over
-     */
-    bool game_loop(status_t *status,
-                   double *counter);
-
-    /*!
-     * \brief Loop that handles the display of the end the game
-     * \param status status of the game
-     */
-    void score_screen_loop(status_t *status);
-
-    /*!
-     * \brief Display infos of the game (score, level, lives and superzapper)
-     */
-    void display_infos();
 
     /*!
      * \brief Launch a game

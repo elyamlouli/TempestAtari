@@ -32,13 +32,9 @@ void Ennemy::move()
 {
     z -= ENNEMY_VELOCITY_COEF;
     if (z >= 0)
-    {
         depth = 1 - (1 - DEPTH_TUBE_COEF) * sqrt(z);
-    }
     else 
-    {
         depth = 1;
-    }
 }
 
 double Ennemy::get_depth()
