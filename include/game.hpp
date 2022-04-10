@@ -58,7 +58,7 @@ private:
 
     /*!< usability of the superzapper */
     bool superzapper;
-    
+
     /*!
      * \brief Loop that handles the operation of the game
      * \param status status of the game
@@ -105,7 +105,7 @@ private:
      * \brief Loop that handles the display of the end the game
      * \param status status of the game
      */
-    void score_screen_loop(status_t *status);
+    void display_scores_loop(status_t *status);
 
 public:
     /*!

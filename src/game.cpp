@@ -55,7 +55,7 @@ status_t Game::play()
     // Results
     while (status == IN_GAME)
     {
-        score_screen_loop(&status);
+        display_scores_loop(&status);
 
         // Set to 60 fps to manage the fluidity
         int delay_ms = (int)floor(16.666f - delta_t);
@@ -111,7 +111,7 @@ bool Game::game_loop(status_t *status, double *counter)
             break;
         }
     }
-    
+
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
@@ -318,7 +318,7 @@ void Game::display_infos()
     delete[] text;
 }
 
-void Game::score_screen_loop(status_t *status)
+void Game::display_scores_loop(status_t *status)
 {
     // Key management
     while (*status == IN_GAME && SDL_PollEvent(&event))
